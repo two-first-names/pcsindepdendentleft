@@ -1,0 +1,4 @@
+wpsrc/
+_site/
+node_modules/
+.idea/

@@ -1,0 +1,14 @@
+{
+  "name": "pcsindependentleft",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node wordpress.js && eleventy"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "@11ty/eleventy": "^2.0.1"
+  }
+}
