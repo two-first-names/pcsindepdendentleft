@@ -54,7 +54,11 @@ function postCallback(post) {
   const frontmatter = {
     title,
     permalink,
-    tags: ['posts']
+    date: post.date,
+    author: post.author.name,
+    excerpt: post.excerpt,
+    tags: ['posts'],
+    layout: 'post.liquid'
   }
 
   writeFileSync(`wpsrc/${path}/${slug}.html`, `---\n${JSON.stringify(frontmatter, null, 2)}\n---\n${content}`);
