@@ -1,0 +1,41 @@
+:root {
+    --fg-color: #FFFFFF;
+    --bg-color: #000000;
+    --link-color: #FF0000;
+}
+
+body {
+    font-family: sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+    background-color: var(--bg-color);
+    color: var(--fg-color);
+    margin: 0 auto;
+
+    padding: 10px;
+
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: 100%;
+
+    min-height: 100vh;
+}
+
+@media (min-width: 1080px) {
+    body {
+        width: 1080px;
+    }
+}
+
+main {
+    max-width: 60rem;
+}
+
+a:link {
+    color: var(--link-color);
+}
+
+a:visited {
+    color: var(--link-color);
+}
