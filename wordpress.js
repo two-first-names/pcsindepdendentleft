@@ -28,7 +28,6 @@ function forEachPost(callback, next_page) {
 function downloadWpContent(url) {
   const path = url.replace(`https://${SITE_NAME}`, 'wpsrc');
   mkdirSync(dirname(path), { recursive: true });
-  console.log(path)
   fetch(url).then(response =>
     promisify(pipeline)(response.body, createWriteStream(path))
   );
@@ -41,12 +40,23 @@ function postCallback(post) {
   mkdirSync(`wpsrc/${path}`, { recursive: true });
 
   const permalink = `/${path}${slug}/`
-  const content = post.content.trim();
+  const content = post.content
+    .replaceAll('https://pcsindependentleft.com/', '/')
+    .trim();
+  const excerpt = post.excerpt
+    .replaceAll('<p>', '')
+    .replaceAll('</p>', '')
+    .trim();
 
-  const matches = content.match(/https:\/\/pcsindependentleft.com\/wp-content\/[\w\/\-.]+/)
+  const matches = post.content.match(/https:\/\/pcsindependentleft.com\/wp-content\/[^"? ]+/g)
+
+  const seen = []
 
   if (matches) {
     for (const match of matches) {
+      if (seen.includes(match))
+        continue;
+      seen.push(match);
       downloadWpContent(match);
     }
   }
@@ -56,7 +66,7 @@ function postCallback(post) {
     permalink,
     date: post.date,
     author: post.author.name,
-    excerpt: post.excerpt,
+    excerpt,
     tags: ['posts'],
     layout: 'post.liquid'
   }
